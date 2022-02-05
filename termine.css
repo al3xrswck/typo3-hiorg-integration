@@ -1,0 +1,39 @@
+table {
+    width: 100%;
+}
+
+td {
+    padding-top: 0.15rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    padding-bottom: 0.15rem;
+    text-align: left;
+}
+
+th{
+    padding-top: 0.25rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    padding-bottom: 0.25rem;
+    text-align: center;
+}
+
+table tr * {
+    border-collapse: collapse;
+    vertical-align: middle;
+}
+
+thead {
+    border-bottom: solid 1px #525252;
+}
+
+table thead tr, table tbody tr:nth-child(2n) {
+    background-color: #f0f0f0;
+}
+
+table tbody tr td:nth-child(4) {
+    vertical-align: top;
+}
+.table-container{
+    overflow-x: auto;
+}
