@@ -8,5 +8,13 @@
     <table id="result">
     </table>
 </div>
-<script id="terminjs" src="/fileadmin/js/termine.js" ov="dovb" termin="1" dienst="1" monate="4" filter="" DateTimeOnly="0"></script>
+<!--
+  - OV: Kürzel des HiOrg-Servers (z.B. "demo") >> OHNE GEHT NIX!! <<
+  - Termin: Sollen Termine angezeigt werden? Nein: "0" / Ja: "1"
+  - Dienst: Sollen Dienste angezeigt werden? Nein: "0" / Ja: "1"
+  - Monate: Termine/Dienste von den nächsten X Monaten werden angezeigt
+  - Filter: Klartextfilter auf den Betreff, z.B. "blutspende" wenn nur Blutspenden angezeigt werden sollen. Wenn kein Filter benötigt: ""
+  - DateTimeOnly: Wenn "1" werden nur die Spalten Datum und Uhrzeit angezeigt, wenn irgend einen anderen Wert (auch "") wird Bezeichnung, Datum, Uhrzeit und Lokation angezeigt.
+-->
+<script id="terminjs" src="/fileadmin/js/termine.js" ov="" termin="" dienst="" monate="" filter="" DateTimeOnly=""></script>
 <br/>
