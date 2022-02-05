@@ -52,12 +52,16 @@ HiOrgRequest.onloadend = (HiOrgJsonResponse => {
         var StartTime = new Date(1e3 * element.sortdate);
         var EndTime = new Date(1e3 * element.enddate);
         var DateString;
-        if (StartTime.toLocaleDateString() == EndTime.toLocaleDateString()){
+        if (StartTime.toLocaleDateString() == EndTime.toLocaleDateString() || "" == element.enddate){
             DateString = StartTime.getDate().toString().padStart(2, "0") + ". " + GetClearMonth(StartTime.getMonth()) + " " + StartTime.getUTCFullYear().toString();
         }else{
             DateString = StartTime.getDate().toString().padStart(2, "0") + ". " + GetClearMonth(StartTime.getMonth()) + " " + StartTime.getUTCFullYear().toString() + " - " + EndTime.getDate().toString().padStart(2, "0") + "." + GetClearMonth(EndTime.getMonth()) + "." + EndTime.getUTCFullYear().toString();
         }
-        var TimeString = StartTime.getHours().toString().padStart(2, "0") + ":" + StartTime.getMinutes().toString().padStart(2, "0") + " - " + EndTime.getHours().toString().padStart(2, "0") + ":" + EndTime.getMinutes().toString().padStart(2, "0") + " Uhr";
+        if("" == element.enddate){
+        	var TimeString = "ab "+StartTime.getHours().toString().padStart(2, "0") + ":" + StartTime.getMinutes().toString().padStart(2, "0") + " Uhr";  
+        }else{
+        	var TimeString = StartTime.getHours().toString().padStart(2, "0") + ":" + StartTime.getMinutes().toString().padStart(2, "0") + " - " + EndTime.getHours().toString().padStart(2, "0") + ":" + EndTime.getMinutes().toString().padStart(2, "0") + " Uhr";
+        }
         var LocationString = "<a target='_blank' href='https://www.google.de/maps/search/" + element.verort.split(", ")[1] + "+" + element.verort.split(", ")[2] + "'>" + element.verort.replace(",", "<br/>") + "</a>";
     	if(script.getAttribute('DateTimeOnly') == "1"){
         	TableContent += "<tr><td>"+DateString+"</td><td>"+TimeString+"</td></tr>";
