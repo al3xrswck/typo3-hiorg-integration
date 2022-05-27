@@ -3,10 +3,10 @@ table {
 }
 
 td {
-    padding-top: 0.15rem;
+    padding-top: 0.2rem;
     padding-left: 0.5rem;
     padding-right: 0.5rem;
-    padding-bottom: 0.15rem;
+    padding-bottom: 0.2rem;
     text-align: left;
 }
 
@@ -34,6 +34,34 @@ table thead tr, table tbody tr:nth-child(2n) {
 table tbody tr td:nth-child(4) {
     vertical-align: top;
 }
+
 .table-container{
     overflow-x: auto;
+}
+
+.outer-container{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  margin: 2rem 0 2rem 0;
+}
+@media screen and (max-width: 1280px) {
+  .outer-container {
+    flex-direction: column;
+  }
+  .inner-container{
+    margin: 1rem 0 1rem 0;
+  }
+}
+
+.noscript-banner {
+  margin: 2rem 0 2rem 0;
+  display: block;
+  text-align: center;
+  width: 100%;
+  padding: 0.5rem;
+  background-color: rgb(255,255,0);
+  border: solid 1px rgb(255,0,0);
 }
