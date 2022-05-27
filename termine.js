@@ -43,9 +43,9 @@ HiOrgRequest.send();
 HiOrgRequest.onloadend = (HiOrgJsonResponse => {
     var ParsedResponse = JSON.parse(HiOrgRequest.responseText.replace('\\"', "").match('^(?:.*)(?:"data":(.*))(?:})$')[1]);
 	if(script.getAttribute('DateTimeOnly') == "1"){
-		var TableContent = "<thead><tr><th>Datum</th><th>Uhrzeit</th></tr></thead><tbody>";
+		var TableContent = "<thead><tr><th>Datum</th></tr></thead><tbody>";
     }else{
-    	var TableContent = "<thead><tr><th>Betreff</th><th>Datum</th><th>Uhrzeit</th><th>Ort</th></tr></thead><tbody>";
+    	var TableContent = "<thead><tr><th>Betreff</th><th>Datum</th><th>Ort</th></tr></thead><tbody>";
 	}
     
     ParsedResponse.forEach(element => {
@@ -53,20 +53,15 @@ HiOrgRequest.onloadend = (HiOrgJsonResponse => {
         var EndTime = new Date(1e3 * element.enddate);
         var DateString;
         if (StartTime.toLocaleDateString() == EndTime.toLocaleDateString() || "" == element.enddate){
-            DateString = StartTime.getDate().toString().padStart(2, "0") + ". " + GetClearMonth(StartTime.getMonth()) + " " + StartTime.getUTCFullYear().toString();
+            DateString = StartTime.getDate().toString().padStart(2, "0") + ". " + GetClearMonth(StartTime.getMonth()) + " " + StartTime.getUTCFullYear().toString() + "<br>ab "+StartTime.getHours().toString().padStart(2, "0") + ":" + StartTime.getMinutes().toString().padStart(2, "0") + " Uhr";
         }else{
-            DateString = StartTime.getDate().toString().padStart(2, "0") + ". " + GetClearMonth(StartTime.getMonth()) + " " + StartTime.getUTCFullYear().toString() + " - " + EndTime.getDate().toString().padStart(2, "0") + "." + GetClearMonth(EndTime.getMonth()) + "." + EndTime.getUTCFullYear().toString();
+            DateString = StartTime.getDate().toString().padStart(2, "0") + ". " + GetClearMonth(StartTime.getMonth()) + " " + StartTime.getUTCFullYear().toString() + ", " + StartTime.getHours().toString().padStart(2, "0") + ":" + StartTime.getMinutes().toString().padStart(2, "0") + " Uhr - <br> " + EndTime.getDate().toString().padStart(2, "0") + ". " + GetClearMonth(EndTime.getMonth()) + " " + EndTime.getUTCFullYear().toString() + ", " + EndTime.getHours().toString().padStart(2, "0") + ":" + EndTime.getMinutes().toString().padStart(2, "0") + " Uhr";
         }
-        if("" == element.enddate){
-        	var TimeString = "ab "+StartTime.getHours().toString().padStart(2, "0") + ":" + StartTime.getMinutes().toString().padStart(2, "0") + " Uhr";  
-        }else{
-        	var TimeString = StartTime.getHours().toString().padStart(2, "0") + ":" + StartTime.getMinutes().toString().padStart(2, "0") + " - " + EndTime.getHours().toString().padStart(2, "0") + ":" + EndTime.getMinutes().toString().padStart(2, "0") + " Uhr";
-        }
-        var LocationString = "<a target='_blank' href='https://www.google.de/maps/search/" + element.verort.split(", ")[1] + "+" + element.verort.split(", ")[2] + "'>" + element.verort.replace(",", "<br/>") + "</a>";
+        var LocationString = element.verort.replace(",", "<br/>");
     	if(script.getAttribute('DateTimeOnly') == "1"){
-        	TableContent += "<tr><td>"+DateString+"</td><td>"+TimeString+"</td></tr>";
+        	TableContent += "<tr><td>"+DateString+"</td></tr>";
         }else{
-      		TableContent += "<tr><td>"+element.verbez+"</td><td>"+DateString+"</td><td>"+TimeString+"</td><td>"+LocationString+"</td></tr>";
+      		TableContent += "<tr><td>"+element.verbez+"</td><td>"+DateString+"</td><td>"+LocationString+"</td></tr>";
         }
     });
       TableContent += "</tbody>";
