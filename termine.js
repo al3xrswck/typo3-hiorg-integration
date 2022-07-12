@@ -1,5 +1,14 @@
 "use strict";
 
+function firstToUpper(x) {
+    switch(x) {
+        case "dienst":
+            return "Sanit&auml;tsdienst";
+        default:
+            return ((x.slice(0,1).toUpperCase())+(x.slice(1,x.length)));
+    }
+}
+
 function GetClearMonth(t) {
     switch (t) {
         case 0:
@@ -34,7 +43,7 @@ function GetClearMonth(t) {
 var script = document.getElementById('terminjs');
 
 var RequestURL = "https://www.hiorg-server.de/termine.php?ov="+script.getAttribute('ov')+"&termin="+script.getAttribute('termin')+"&dienst="+script.getAttribute('dienst')+"&json=1&monate="+script.getAttribute('monate')+"&filter="+script.getAttribute('filter');
-console.log(RequestURL);
+<!-- console.log(RequestURL); -->
 var RequestMethod = "GET";
 
 var HiOrgRequest = new XMLHttpRequest();
@@ -45,7 +54,7 @@ HiOrgRequest.onloadend = (HiOrgJsonResponse => {
 	if(script.getAttribute('DateTimeOnly') == "1"){
 		var TableContent = "<thead><tr><th>Datum</th></tr></thead><tbody>";
     }else{
-    	var TableContent = "<thead><tr><th>Betreff</th><th>Datum</th><th>Ort</th></tr></thead><tbody>";
+    	var TableContent = "<thead><tr><th>Typ</th><th>Betreff</th><th>Datum</th><th>Ort</th></tr></thead><tbody>";
 	}
     
     ParsedResponse.forEach(element => {
@@ -58,8 +67,10 @@ HiOrgRequest.onloadend = (HiOrgJsonResponse => {
             DateString = StartTime.getDate().toString().padStart(2, "0") + ". " + GetClearMonth(StartTime.getMonth()) + " " + StartTime.getUTCFullYear().toString() + ", " + StartTime.getHours().toString().padStart(2, "0") + ":" + StartTime.getMinutes().toString().padStart(2, "0") + " Uhr - <br> " + EndTime.getDate().toString().padStart(2, "0") + ". " + GetClearMonth(EndTime.getMonth()) + " " + EndTime.getUTCFullYear().toString() + ", " + EndTime.getHours().toString().padStart(2, "0") + ":" + EndTime.getMinutes().toString().padStart(2, "0") + " Uhr";
         }
         var LocationString = element.verort.replace(",", "<br/>");
-    	if(script.getAttribute('DateTimeOnly') == "1"){
+    	if(script.getAttribute('dateTimeOnly') == "1"){
         	TableContent += "<tr><td>"+DateString+"</td></tr>";
+        }else if(script.getAttribute('includeType') == "1"){
+            TableContent += "<tr><td>"+firstToUpper(element.typ)+"</td><td>"+element.verbez+"</td><td>"+DateString+"</td><td>"+LocationString+"</td></tr>";
         }else{
       		TableContent += "<tr><td>"+element.verbez+"</td><td>"+DateString+"</td><td>"+LocationString+"</td></tr>";
         }
