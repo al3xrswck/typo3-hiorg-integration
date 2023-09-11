@@ -43,7 +43,6 @@ function GetClearMonth(t) {
 var script = document.getElementById('terminjs');
 
 var RequestURL = "https://www.hiorg-server.de/termine.php?ov="+script.getAttribute('ov')+"&termin="+script.getAttribute('termin')+"&dienst="+script.getAttribute('dienst')+"&json=1&monate="+script.getAttribute('monate')+"&filter="+script.getAttribute('filter');
-<!-- console.log(RequestURL); -->
 var RequestMethod = "GET";
 
 var HiOrgRequest = new XMLHttpRequest();
